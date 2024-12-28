@@ -6,26 +6,28 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 21f6d5bc8c2347b1d20c358fcba8f6052a637f3687a1a42393a42e75570ee67c
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
     - intreehooks
     - poetry
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - intreehooks
     - poetry
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - rtd_poetry
 
